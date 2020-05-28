@@ -3,16 +3,6 @@
   margin-top: 20px;
 }
 
-#my-heading {
- border: 5px outset rgb(135, 134, 136);
- background-color: rgb(0, 0, 0);
- text-align: center;
- color: rgb(196, 192, 192);
- height: 350px;
- font-size: 60px;
- 
-}
-
 #my-body {
  background-color: rgb(32, 32, 36);   
 }
@@ -34,6 +24,11 @@ li a {
   float: left;
 }
 
+.active-li a {
+  color: rgb(250, 245, 245) !important;
+  background-color: rgb(133, 132, 132);
+}
+
 #my-name {
 
   color: rgb(214, 207, 207);
@@ -45,7 +40,7 @@ li a {
 }
 
 li a:hover {
-  background-color: #111;
+  background-color: rgb(226, 222, 222);
 }
 
 #my-header {
