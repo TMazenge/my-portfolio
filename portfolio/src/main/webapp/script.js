@@ -13,30 +13,43 @@
 // limitations under the License.
 
 
-var slideIndex = 1;
-showSlides(slideIndex);
+var i = 0; 			// Start Point
+var images = [];	// Images Array  
+var time = 3000;	// Time Between Switch
+	 
+// Image List
+images[0] = "images/skate2.jpg";
+images[1] = "images/skateboard.jpg";
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
+images[2] = "images/read.jpg";
+images[3] = "images/read3.jpg";
+images[4] = "images/read4.jpg";
+
+images[5] = "images/photography1.jpg";
+images[6] = "images/photography-1.jpg";
+images[7] = "images/photography.jpg";
+images[8] = "images/photo-3.jpg";
+images[9] = "images/photo2.jpg";
+
+images[10] = "images/art.jpg";
+images[11] = "images/art4.jpg";
+images[12] = "images/art5.jpg";
+
+
+// Change Image
+function changeImg(){
+	document.slide.src = images[i];
+	// Check If Index Is Under Max
+	if(i < images.length - 1){
+	  // Add 1 to Index
+	  i++; 
+	} else { 
+		// Reset Back To O
+		i = 0;
+	}
+	// Run function every x seconds
+	setTimeout("changeImg()", time);
 }
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-}
-
+// Run function when page loads
+window.onload=changeImg;
