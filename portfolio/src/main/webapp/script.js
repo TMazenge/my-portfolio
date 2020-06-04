@@ -90,7 +90,6 @@ async function getDataAsyncAwait() {
 
 function getServerComments() {
   fetch('/data').then(response => response.json()).then((comments) => {
-    // stats is an object, not a string, so we have to
     // reference its fields to create HTML content
    
     const commentsListElement = document.getElementById('comments-container');  
