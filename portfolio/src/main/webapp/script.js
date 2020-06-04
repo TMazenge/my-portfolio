@@ -75,3 +75,16 @@ var x = setInterval(function() {
     document.getElementById("grad").innerHTML = "EXPIRED";
   }
 }, 1000);
+
+
+/**
+ * Another way to use fetch is by using the async and await keywords. This
+ * allows you to use the return values directly instead of going through
+ * Promises.
+ */
+async function getDataAsyncAwait() {
+  const response = await fetch('/data');
+  const data = await response.text();
+  document.getElementById('data-container').innerText = data;
+}
+
