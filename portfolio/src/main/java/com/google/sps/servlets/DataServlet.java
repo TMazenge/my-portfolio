@@ -35,7 +35,7 @@ public class DataServlet extends HttpServlet {
     comments.add("I want to travel to the Taj Mahal as well");
 
     String json = convertToJsonUsingGson(comments);
-    response.setContentType("text/html;");
+    response.setContentType("text/html");
     response.getWriter().println(json);
   }
   
