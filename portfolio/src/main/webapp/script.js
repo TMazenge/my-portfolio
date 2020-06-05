@@ -76,29 +76,9 @@ var x = setInterval(function() {
   }
 }, 1000);
 
-
-/**
- * Another way to use fetch is by using the async and await keywords. This
- * allows you to use the return values directly instead of going through
- * Promises.
- */
-async function getDataAsyncAwait() {
-  const response = await fetch('/data');
-  const data = await response.text();
-  document.getElementById('data-container').innerText = data;
-}
-
 function getServerComments() {
   fetch('/data').then(response => response.json()).then((comments) => {
-    // stats is an object, not a string, so we have to
-    // reference its fields to create HTML content
    
-    //const commentsListElement = document.getElementById('comments-container');  
-    //for (i = 0; i < comments.length; i++) {
-    //    commentsListElement.appendChild(
-    //        createListElement("Comment: " + comments[i]));
-   // }
-
     // Build the list of saved comments.
     const commentsListElement = document.getElementById('history');  
         for (i = 0; i < comments.length; i++) {
