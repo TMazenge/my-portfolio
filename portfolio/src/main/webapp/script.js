@@ -88,3 +88,21 @@ async function getDataAsyncAwait() {
   document.getElementById('data-container').innerText = data;
 }
 
+function getServerComments() {
+  fetch('/data').then(response => response.json()).then((comments) => {
+    // reference its fields to create HTML content
+   
+    const commentsElement = document.getElementById('comments-container');  
+    for (i = 0; i < comments.length; i++) {
+        commentsElement.appendChild(
+            createListElement("Comment: " + comments[i]));
+    }
+  });
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
