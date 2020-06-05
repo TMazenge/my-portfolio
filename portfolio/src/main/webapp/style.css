@@ -1,9 +1,138 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+
+#my-body {
+ background-color: rgb(32, 32, 36);   
 }
 
-#greeting-container {
-  margin-top: 20px;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 20px 25px;
+  text-decoration: none;
+  float: left;
+}
+
+.active-li a {
+  color: rgb(250, 245, 245) !important;
+  background-color: rgb(133, 132, 132);
+}
+
+#my-name {
+
+  color: rgb(214, 207, 207);
+  text-align: center;
+  padding: 20px 25px;
+  text-decoration: none;
+  float: right;
+  font: 40px;
+}
+
+li a:hover {
+  background-color: rgb(226, 222, 222);
+}
+
+#my-header {
+ border: 5px outset rgb(135, 134, 136);
+ background-color: rgb(0, 0, 0);
+ text-align: center;
+ color: rgb(196, 192, 192);
+ height: 200px;
+ font-size: 40px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+
+}
+
+.my-content-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;  
+}
+
+.my-content-item {
+    position: relative;
+}
+
+h2 { 
+   position: absolute; 
+   top: 200px; 
+   left: 0; 
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   height: 100%;
+   text-align: center;
+   padding-left: 100px;
+   padding-right: 100px;
+}
+
+
+.img-txt .sub {
+    transition: 1s;
+    color: transparent;
+    font-weight: 1000;
+}
+
+.img-txt:hover .sub {
+   font-weight: 1000;
+   color: rgb(250, 250, 250);
+}
+
+.portfolio-img:hover {
+    transition: 1s;
+    filter: brightness(50%);
+}
+
+/*About Page CSS*/
+
+.my-about-content-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  
+}
+
+.my-about-content-item {
+    position: relative;
+}
+
+.about-text {
+    color: lightseagreen;
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/*Activities Page*/
+
+.slide-contents {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  
+}
+
+.slide-content {
+    position: relative;
+}
+
+.parallax {
+  /* The image used */
+  background-image: url("images/africa-3.jpg");
+
+  /* Set a specific height */
+  height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
