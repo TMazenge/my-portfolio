@@ -38,6 +38,7 @@ public class DataServlet extends HttpServlet {
     response.setContentType("text/html;");
     response.getWriter().println(json);
   }
+
   
     private String convertToJsonUsingGson(ArrayList<String> comments) {
         Gson gson = new Gson();
@@ -45,5 +46,6 @@ public class DataServlet extends HttpServlet {
         return json;
     }
 }
+
 
 
