@@ -106,7 +106,7 @@ h2 {
 }
 
 .about-text {
-    color: lightseagreen;
+    color: rgb(226, 229, 229);
     font-size: 25px;
     font-weight: 600;
     text-align: center;
@@ -125,7 +125,7 @@ h2 {
 
 .parallax {
   /* The image used */
-  background-image: url("images/africa-3.jpg");
+  background-image: url("images/night.jpg");
 
   /* Set a specific height */
   height: 500px;
@@ -135,4 +135,20 @@ h2 {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.dest-text {
+    color: rgb(219, 224, 224);
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+}
+
+.my-imgs {
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr;  
 }
