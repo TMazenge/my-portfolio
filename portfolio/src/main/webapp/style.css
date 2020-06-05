@@ -152,3 +152,9 @@ img {
    display: grid;
    grid-template-columns: 1fr 1fr 1fr;  
 }
+
+/* Comments CSS */
+.my-form {
+    color: rgb(219, 224, 224);
+}
+

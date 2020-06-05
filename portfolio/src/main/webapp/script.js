@@ -93,11 +93,18 @@ function getServerComments() {
     // stats is an object, not a string, so we have to
     // reference its fields to create HTML content
    
-    const commentsListElement = document.getElementById('comments-container');  
-    for (i = 0; i < comments.length; i++) {
-        commentsListElement.appendChild(
-            createListElement("Comment: " + comments[i]));
-    }
+    //const commentsListElement = document.getElementById('comments-container');  
+    //for (i = 0; i < comments.length; i++) {
+    //    commentsListElement.appendChild(
+    //        createListElement("Comment: " + comments[i]));
+   // }
+
+    // Build the list of saved comments.
+    const commentsListElement = document.getElementById('history');  
+        for (i = 0; i < comments.length; i++) {
+            commentsListElement.appendChild(
+                createListElement(comments[i]));
+        }
   });
 }
 
