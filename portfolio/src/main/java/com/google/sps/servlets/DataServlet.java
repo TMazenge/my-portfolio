@@ -53,6 +53,7 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(json);
   }
 
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
@@ -77,10 +78,6 @@ public class DataServlet extends HttpServlet {
         return json;
     }
 }
-
-
-   
-
 
 
 
