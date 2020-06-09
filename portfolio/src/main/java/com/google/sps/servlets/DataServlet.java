@@ -37,6 +37,8 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    
+    // Get query strings from the Datastore as entities.
     PreparedQuery comments = datastore.prepare(query);
 
     ArrayList<String> userComments = new ArrayList<String>();
