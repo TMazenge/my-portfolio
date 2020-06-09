@@ -75,7 +75,7 @@ public class DataServlet extends HttpServlet {
     // Redirect back to the HTML page.
     response.sendRedirect("/activities.html");
   }
-  
+
   @Override 
   public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
       Query query = new Query("Comment").setKeysOnly();
@@ -107,8 +107,8 @@ public class DataServlet extends HttpServlet {
   }
 }
 
-
    
+
 
 
 
