@@ -32,18 +32,25 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); 
+  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    
     PreparedQuery comments = datastore.prepare(query);
 
+    int maxLimit = userChoice(request, "max-comments");
+    int count = 0;
     ArrayList<String> userComments = new ArrayList<String>();
     for (Entity entity : comments.asIterable()) {
 
         String userComment = (String) entity.getProperty("comment");
-        userComments.add(userComment);
+        if (count < maxLimit) {
+            userComments.add(userComment);
+            count++;
+        }
     }
 
     String json = convertToJsonUsingGson(userComments);
@@ -66,7 +73,17 @@ public class DataServlet extends HttpServlet {
     datastore.put(commentEntity);
 
     // Redirect back to the HTML page.
-    response.sendRedirect("/index.html");
+    response.sendRedirect("/activities.html");
+  }
+  
+  @Override 
+  public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      Query query = new Query("Comment").setKeysOnly();
+      PreparedQuery results = datastore.prepare(query);
+
+      for (Entity entity : results.asIterable()) {
+             datastore.delete(entity.getKey());
+        }
   }
 
     private String convertToJsonUsingGson(ArrayList<String> comments) {
@@ -74,6 +91,20 @@ public class DataServlet extends HttpServlet {
         String json = gson.toJson(comments);
         return json;
     }
+
+  private int userChoice(HttpServletRequest request, String param) {
+    // Get the input from the form.
+    String userChoice = request.getParameter(param);
+
+    // Convert the input to an int.
+    int limit;
+    try {
+      limit = Integer.parseInt(userChoice);
+    } catch (NumberFormatException e) {
+      limit = Integer.MAX_VALUE;
+    }
+    return limit;
+  }
 }
 
 

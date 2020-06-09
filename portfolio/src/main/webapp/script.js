@@ -77,7 +77,10 @@ var x = setInterval(function() {
 }, 1000);
 
 function getServerComments() {
-  fetch('/data').then(response => response.json()).then((comments) => {
+  const maxComment = sessionStorage.getItem("max-comments") || 1;
+  document.getElementById("max-comments").value = maxComment;
+  document.getElementById('history').innerHTML = '';
+  fetch('/data?max-comments=' + maxComment).then(response => response.json()).then((comments) => {
    
     // Build the list of saved comments.
     const commentsListElement = document.getElementById('history');  
@@ -93,4 +96,20 @@ function createListElement(text) {
   const liElement = document.createElement('li');
   liElement.innerText = text;
   return liElement;
+}
+
+/* Reloads page after maximum number of comments is changed.*/
+function reloadComments() {
+  const maxComment = document.getElementById("max-comments").value;
+  const newLocal = 'max-comments';
+  sessionStorage.setItem(newLocal, maxComment);
+  getServerComments();
+}
+
+/** Tells the server to delete the comment. */
+function deleteComments() {
+  if (window.confirm("Are sure you want to delete all comments?")){
+    //Delete comments and update server with the deleted data.
+    fetch('/data', {method: 'DELETE'}).then(getServerComments).catch(error => void console.error(error));
+    }
 }
