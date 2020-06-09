@@ -38,7 +38,7 @@ public class DataServlet extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     
-    // Get query strings from the Datastore as entities.
+    // Get query strings as entities from the Datastore.
     PreparedQuery comments = datastore.prepare(query);
 
     ArrayList<String> userComments = new ArrayList<String>();
