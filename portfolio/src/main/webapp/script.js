@@ -13,10 +13,10 @@
 // limitations under the License.
 
 
-
 var i = 0; 			// Start Point
 var images = [];	// Images Array  
-	 
+
+
 // Add images to array of images for slideshow.
 images[0] = "images/skate2.jpg";
 images[1] = "images/skateboard.jpg";
@@ -91,3 +91,20 @@ function deleteComments() {
     fetch('/data', {method: 'DELETE'}).then(getServerComments).catch(error => void console.error(error));
     }
 }
+
+function createMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map1'),
+      {center: {lat: 27.17, lng: 78.04}, zoom: 16});
+
+  const map2 = new google.maps.Map(
+      document.getElementById('map2'),
+      {center: {lat: 40.4319, lng: 116.5704}, zoom: 16});
+
+  const map3 = new google.maps.Map(
+      document.getElementById('map3'),
+      {center: {lat: 51.5033, lng: 0.1195}, zoom: 16});
+
+
+}
+

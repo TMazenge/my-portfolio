@@ -37,8 +37,7 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
-
-    
+ 
     PreparedQuery comments = datastore.prepare(query);
 
     int maxLimit = userChoice(request, "max-comments");
@@ -57,6 +56,7 @@ public class DataServlet extends HttpServlet {
     response.setContentType("text/html;");
     response.getWriter().println(json);
   }
+
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -86,6 +86,7 @@ public class DataServlet extends HttpServlet {
         }
   }
 
+
     private String convertToJsonUsingGson(ArrayList<String> comments) {
         Gson gson = new Gson();
         String json = gson.toJson(comments);
@@ -108,6 +109,7 @@ public class DataServlet extends HttpServlet {
 }
 
    
+
 
 
 
