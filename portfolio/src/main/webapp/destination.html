@@ -5,9 +5,10 @@
      <meta name="viewport" content="width=device-width">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsXue58CAXOH-5VWiXjHjhBa-0lr5Mlk8"></script>
     <script src="script.js"></script>
   </head>
-  <body id="my-body" class="parallax">
+  <body id="my-body" class="parallax" onload="createMap()">
 
     <div id="my-header">
       <h1>Travel Destinations</h1> 
@@ -18,7 +19,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="activities.html">Extracurrilucar Activities</a></li>
+                <li><a href="activities.html">Extracurricular Activities</a></li>
                 <li><a href="mission.html">Life Mission</a></li>
                 <li class="active-li"><a href="destination.html">Travel Destinations</a></li>
                 <li id="my-name">Timothy Mazenge</li>
@@ -31,102 +32,27 @@
 
               <div class="my-about-content-item">
                 <div class="about-img">
-                    <img src="images/taj-mahal2.jpg" style="width:100%;height:100%;">         
+                    <img src="images/taj-mahal2.jpg" alt="Taj Mahal" style="width:100%;height:100%;">         
                 </div>    
             </div>
 
-             <div class="my-about-text-item">
-                <div class="dest-text">
-                    <h1>Taj Mahal</h1> 
-                    <p>The Taj Mahal (/ˌtɑːdʒ məˈhɑːl, ˌtɑːʒ-/; lit. 'Crown of the Palace') is an ivory-white marble 
-                        mausoleum on the southern bank of the river Yamuna in the Indian city of Agra. It was commissioned in 1632 by the Mughal 
-                        emperor Shah Jahan (reigned from 1628 to 1658) to house the tomb of his favourite wife, Mumtaz Mahal; it also houses the tomb 
-                        of Shah Jahan himself. The tomb is the centrepiece of a 17-hectare (42-acre) complex, which includes a mosque and a guest house, 
-                        and is set in formal gardens bounded on three sides by a crenellated wall.Construction of the mausoleum was essentially completed in 
-                        1643, but work continued on other phases of the project for another 10 years. The Taj Mahal complex is believed to have been completed 
-                        in its entirety in 1653 at a cost estimated at the time to be around 32 million rupees, which in 2020 would be approximately 70 billion 
-                        rupees (about U.S. $916 million). The construction project employed some 20,000 artisans under the guidance of a board of architects led 
-                        by the court architect to the emperor, Ustad Ahmad Lahauri.The Taj Mahal was designated as a UNESCO World Heritage Site in 1983 for being 
-                        "the jewel of Muslim art in India and one of the universally admired masterpieces of the world's heritage". It is regarded by many as the 
-                        best example of Mughal architecture and a symbol of India's rich history. The Taj Mahal attracts 7–8 million visitors a year and in 2007, it 
-                        was declared a winner of the New 7 Wonders of the World (2000–2007) initiative.<p>
-                </div> 
-            </div>
+             <div class="my-about-text-item" id="map1"></div>
 
-            <div class="my-about-text-item">
-                    <div class="dest-text">
-                        <h1>Great Wall of China</h1> 
-                        <p>The Great Wall of China (Chinese: 萬里長城; pinyin: Wànlǐ Chángchéng) is the collective name of a series of
-                            fortification systems generally built across the historical northern borders of China to protect and consolidate
-                             territories of Chinese states and empires against various nomadic groups of the steppe and their polities. Several 
-                             walls were being built from as early as the 7th century BC by ancient Chinese states; selective stretches were later 
-                             joined together by Qin Shi Huang (220–206 BC), the first emperor of China. Little of the Qin wall remains. Later on, 
-                             many successive dynasties have built and maintained multiple stretches of border walls. The most well-known sections of 
-                             the wall were built by the Ming dynasty (1368–1644).Apart from defense, other purposes of the Great Wall have included border 
-                             controls, allowing the imposition of duties on goods transported along the Silk Road, regulation or encouragement of trade and 
-                             the control of immigration and emigration. Furthermore, the defensive characteristics of the Great Wall were enhanced by the 
-                             construction of watch towers, troop barracks, garrison stations, signaling capabilities through the means of smoke or fire, and 
-                             the fact that the path of the Great Wall also served as a transportation corridor. The frontier walls built by different dynasties 
-                             have multiple courses. Collectively, they stretch from Liaodong in the east to Lop Lake in the west, from the present-day Sino–Russian 
-                             border in the north to Taohe River in the south; along an arc that roughly delineates the edge of Mongolian steppe. A comprehensive archaeological 
-                             survey, using advanced technologies, has concluded that the walls built by the Ming dynasty measure 8,850 km (5,500 mi). This is made up of 6,259 km (3,889 mi)
-                              sections of actual wall, 359 km (223 mi) of trenches and 2,232 km (1,387 mi) of natural defensive barriers such as hills and rivers.[4] Another archaeological survey 
-                              found that the entire wall with all of its branches measures out to be 21,196 km (13,171 mi). Today, the defensive system of the Great Wall is generally recognized as 
-                              one of the most impressive architectural feats in history.<p>
-                    </div> 
+            <div class="my-about-text-item" id="map2"></div>
+
+             <div class="my-about-content-item">
+                <div class="about-img">
+                    <img src="images/great-wall-1.jpg" alt="Great Wall of China" style="width:100%;height:100%;">         
+                </div>    
             </div>
 
              <div class="my-about-content-item">
                 <div class="about-img">
-                    <img src="images/great-wall-1.jpg" style="width:100%;height:100%;">         
+                    <img src="images/uk-bridge.jpg" alt="London Eye" style="width:100%;height:100%;">         
                 </div>    
             </div>
 
-              <div class="my-about-content-item">
-                <div class="about-img">
-                    <img src="images/paris-1.jpg" style="width:100%;height:1500px;">         
-                </div>    
-            </div>
-
-            <div class="my-about-text-item">
-                <div class="dest-text">
-                    <h1>Paris</h1> 
-                    <p>The Eiffel Tower (/ˈaɪfəl/ EYE-fəl; French: tour Eiffel [tuʁ‿ɛfɛl] (About this soundlisten)) is a wrought-iron lattice tower on the Champ de Mars in Paris, France. It is named 
-                        after the engineer Gustave Eiffel, whose company designed and built the tower. Constructed from 1887 to 1889 as the entrance to the 1889 World's Fair, it was initially criticised 
-                        by some of France's leading artists and intellectuals for its design, but it has become a global cultural icon of France and one of the most recognisable structures in the world.
-                        The Eiffel Tower is the most-visited paid monument in the world; 6.91 million people ascended it in 2015. The tower is 324 metres (1,063 ft) tall, about the same height as an 81-storey 
-                        building, and the tallest structure in Paris. Its base is square, measuring 125 metres (410 ft) on each side. During its construction, the Eiffel Tower surpassed the Washington Monument 
-                        to become the tallest man-made structure in the world, a title it held for 41 years until the Chrysler Building in New York City was finished in 1930. It was the first structure to reach a 
-                        height of 300 metres. Due to the addition of a broadcasting aerial at the top of the tower in 1957, it is now taller than the Chrysler Building by 5.2 metres (17 ft). Excluding transmitters, 
-                        the Eiffel Tower is the second tallest free-standing structure in France after the Millau Viaduct. The tower has three levels for visitors, with restaurants on the first and second levels.
-                        The top level's upper platform is 276 m (906 ft) above the ground – the highest observation deck accessible to the public in the European Union. Tickets can be purchased to ascend by stairs 
-                        or lift to the first and second levels. The climb from ground level to the first level is over 300 steps, as is the climb from the first level to the second. Although there is a staircase to 
-                        the top level, it is usually accessible only by lift.<p>
-                </div> 
-            </div>
-
-             <div class="my-about-text-item">
-                <div class="dest-text">
-                    <h1>The London Eye</h1> 
-                    <p>The London Eye, or the Millennium Wheel, is a cantilevered observation wheel on the South Bank of the River Thames in London. It is Europe's tallest cantilevered observation wheel, 
-                        and is the most popular paid tourist attraction in the United Kingdom with over 3.75 million visitors annually, and has made many appearances in popular culture. The structure is 
-                        135 metres (443 ft) tall and the wheel has a diameter of 120 metres (394 ft). When it opened to the public in 2000 it was the world's tallest Ferris wheel. Its height was surpassed 
-                        by the 160-metre (525 ft) Star of Nanchang in 2006, the 165-metre (541 ft) Singapore Flyer in 2008, and the 167-metre-tall (547.9 ft) High Roller (Las Vegas) in 2014. Supported by 
-                        an A-frame on one side only, unlike the taller Nanchang and Singapore wheels, the Eye is described by its operators as "the world's tallest cantilevered observation wheel".The 
-                        London Eye used to offer the highest public viewing point in London until it was superseded by the 245-metre-high (804 ft) observation deck on the 72nd floor of The Shard, 
-                        which opened to the public on 1 February 2013. The London Eye adjoins the western end of Jubilee Gardens (previously the site of the former Dome of Discovery), on the South Bank 
-                        of the River Thames between Westminster Bridge and Hungerford Bridge beside County Hall, in the London Borough of Lambeth. In March 2020 the London Eye celebrated its 20th birthday 
-                        by turning its pods into experiences in partnership with its sponsor lastminute.com. The special experiences included a pub in a capsule, a west end theatre pod and a garden party 
-                        with flower arrangements to represent the eight London Royal parks.<p>
-                </div> 
-            </div> 
-            
-            <div class="my-about-content-item">
-                <div class="about-img">
-                    <img src="images/uk-bridge.jpg" style="width:100%;height:100%;">         
-                </div>    
-            </div>
-       
+             <div class="my-about-text-item" id="map3"></div> 
         </div>
      </div>
   </body>

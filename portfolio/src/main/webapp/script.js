@@ -15,9 +15,9 @@
 
 var i = 0; 			// Start Point
 var images = [];	// Images Array  
-var time = 3000;	// Time Between Switch
-	 
-// Image List
+
+
+// Add images to array of images for slideshow.
 images[0] = "images/skate2.jpg";
 images[1] = "images/skateboard.jpg";
 
@@ -53,28 +53,6 @@ function changeImg(){
 
 // Run function when page loads
 window.onload=changeImg;
-
-
-var countDownDate = new Date("May 5, 2022 16:00:00").getTime();
-var x = setInterval(function() {
-  var now = new Date().getTime();
-  var distance = countDownDate - now;
-
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  // Display the result in the element with id="demo"
-  document.getElementById("grad").innerHTML = days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
-
-  // If the count down is finished, write some text
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("grad").innerHTML = "EXPIRED";
-  }
-}, 1000);
 
 function getServerComments() {
   const maxComment = sessionStorage.getItem("max-comments") || 1;
@@ -113,3 +91,20 @@ function deleteComments() {
     fetch('/data', {method: 'DELETE'}).then(getServerComments).catch(error => void console.error(error));
     }
 }
+
+function createMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map1'),
+      {center: {lat: 27.17, lng: 78.04}, zoom: 16});
+
+  const map2 = new google.maps.Map(
+      document.getElementById('map2'),
+      {center: {lat: 40.4319, lng: 116.5704}, zoom: 16});
+
+  const map3 = new google.maps.Map(
+      document.getElementById('map3'),
+      {center: {lat: 51.5033, lng: 0.1195}, zoom: 16});
+
+
+}
+

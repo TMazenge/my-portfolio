@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body id="my-body" onload="getServerComments()">
+  <body id="my-body" onload="getServerComments()" onload="reloadComments()">
 
     <div id="my-header">
       <h1>Extracurricular Activities</h1> 
@@ -18,7 +18,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li class="active-li"><a href="activities.html">Extracurrilucar Activities</a></li>
+                <li class="active-li"><a href="activities.html">Extracurricular Activities</a></li>
                 <li><a href="mission.html">Life Mission</a></li>
                 <li><a href="destination.html">Travel Destinations</a></li>
                 <li id="my-name">Timothy Mazenge</li>
@@ -68,15 +68,15 @@
                  <form action="/data" method="POST">
                     <p>Please Leave Comments.</p>
                     <textarea name="text-input" rows="1" cols="100"></textarea>
-                    <br/><br/>
+                    <br/><br/>   
                     <input type="submit"/>
                 </form>
              </div>
-             
+
              <div class="my-comment">
                 <h4>Comment Section</h4>
                 <ol id="history" ></ol>
-             <div> 
+             <div>   
      </div>
   </body>
 </html>
