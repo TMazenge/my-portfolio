@@ -13,10 +13,11 @@
 // limitations under the License.
 
 
-var i = 0; 			// Start Point
-var images = [];	// Images Array  
 
-
+var i = 0; 	        // Start Point
+var images = [];	// Create Images Array  
+var time = 3000;	// Time Between Switch
+	 
 // Add images to array of images for slideshow.
 images[0] = "images/skate2.jpg";
 images[1] = "images/skateboard.jpg";
