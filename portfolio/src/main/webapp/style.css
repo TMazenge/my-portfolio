@@ -158,3 +158,20 @@ img {
     color: rgb(219, 224, 224);
 }
 
+.my-comment-contents {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  
+}
+
+/* Destination CSS */
+
+.destination {
+   background-color: rgb(0, 0, 0); 
+}
+
+
+#map4 {
+  border: thin solid black;
+  height: 500px;
+  width: 100%;
+}
