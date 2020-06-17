@@ -520,4 +520,5 @@ function drawAfricaMap() {
 
     var chart = new google.visualization.GeoChart(document.getElementById('chart-two'));
         chart.draw(data, options);
+	
 }
