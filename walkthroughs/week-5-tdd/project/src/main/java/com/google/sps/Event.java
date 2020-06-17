@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+
 /**
  * Event is the container class for when a specific group of people are meeting and are therefore
  * busy. Events are considered read-only.
