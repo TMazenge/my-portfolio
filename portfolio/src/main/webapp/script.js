@@ -12,12 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCsXue58CAXOH-5VWiXjHjhBa-0lr5Mlk8'});
+
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(drawPieChart);
+google.charts.setOnLoadCallback(drawAfricaMap);
 
 
-var i = 0; 	        // Start Point
-var images = [];	// Create Images Array  
-var time = 3000;	// Time Between Switch
-	 
+var i = 0; 			// Start Point
+var images = [];	// Images Array  
+var time = 4000;
+
 // Add images to array of images for slideshow.
 images[0] = "images/skate2.jpg";
 images[1] = "images/skateboard.jpg";
@@ -455,5 +461,63 @@ function userMaps() {
     createUserMap();
 }
 
+// Callback that creates and populates a data table,
+// instantiates the pie chart, passes in the data and
+// draws it.
+function drawPieChart() {
 
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Living Status');
+    data.addColumn('number', 'Percentages');
+    data.addRows([
+        ['Children with homes', 31.4],
+        ['Children living on streets', 56.9],
+        ['Children living both home and streets', 11.8],
+    ]);
 
+    // Set chart options
+    var options = {'title':'Zimbabwe children Living Status',
+                    backgroundColor: 'transparent',
+                    'width':500,
+                    'height':450};
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('chart-one'));
+    chart.draw(data, options);
+}
+
+function drawAfricaMap() {
+  
+    var data = google.visualization.arrayToDataTable([
+        ['Country',   'Unemployment Rate'],
+        ['Algeria', 11.7], ['Angola', 31.8], ['Benin', 2.5], ['Botswana', 18.2],
+        ['Burkina Faso', 6.15], ['Burundi', 1.54], ['Cameroon', 3.34],
+        ['Canary Islands', 25.68], ['Cape Verde', 14.66],
+        ['Central African Republic', 6.52], ['Chad', 2.32],
+        ['Comoros', 3.7], ['Ivory Coast', 2.48], ['CD-KN', 2.48],
+        ['Congo, DR', 10.40], ['Djibouti', 11.3],
+        ['Egypt', 11.59], ['Equatorial Guinea', 9.2], ['Eritrea', 5.19],
+        ['Ethiopia', 2.08], ['Gabon', 19.61], ['Gambia', 8.9], ['Ghana', 6.78],
+        ['Guinea', 4.6], ['Guinea-Bissau', 2.44], ['Kenya', 9.31],
+        ['Lesotho', 23.48], ['Liberia', 6], ['Libya', 17.3], ['Madagascar', 1.66],
+        ['Malawi', 5.38], ['Mali', 9.44], ['Mauritania', 10.32],
+        ['Mauritius', 7.3], ['Morocco', 9.03], ['Mozambique', 23.78], ['Namibia', 23.19],
+        ['Niger', 0.26], ['Nigeria', 6.11],
+        ['Rwanda', 17], ['São Tomé and Principe', 13.4], ['Senegal', 6.52],
+        ['Seychelles', 2.68], ['Sierra Leone', 4.3], ['Somalia', 13.96],
+        ['Sudan', 12.88], ['South Africa', 27.32], ['SS', 12.7],
+        ['Swaziland', 22.48], ['Tanzania', 1.91], ['Togo', 2.7], ['Tunisia', 15.4],
+        ['Uganda', 2.4], ['Western Sahara', 2.4], ['Zambia', 14.7],
+        ['Zimbabwe', 4.9]
+    ]);
+
+    var options = {
+        region: '002', // Africa
+        backgroundColor: "#006994",
+    };
+
+    var chart = new google.visualization.GeoChart(document.getElementById('chart-two'));
+        chart.draw(data, options);
+	
+}

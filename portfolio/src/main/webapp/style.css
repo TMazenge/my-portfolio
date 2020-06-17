@@ -46,6 +46,10 @@ li a:hover {
  color: rgb(196, 192, 192);
  height: 200px;
  font-size: 40px;
+ font-family: 'ChomskyRegular';
+ font-weight: normal;
+ font-style: normal;
+}
 }
 
 .container {
@@ -170,8 +174,12 @@ img {
 }
 
 
-#map4 {
-  border: thin solid black;
+#map4, #chart-two {
   height: 500px;
   width: 100%;
+}
+
+.chart {
+  width: 900px;
+  margin: 0 auto; 
 }
