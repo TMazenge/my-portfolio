@@ -24,7 +24,6 @@ var i = 0; 			// Start Point
 var images = [];	// Images Array  
 var time = 4000;
 
-
 // Add images to array of images for slideshow.
 images[0] = "images/skate2.jpg";
 images[1] = "images/skateboard.jpg";
