@@ -10,7 +10,7 @@
     <script src="script.js"></script>
 
   </head>
-  <body id="my-body" onload="getServerComments()" onload="reloadComments()">
+  <body id="my-about" onload="getServerComments()" onload="reloadComments()" onload="currentSlide(1)">
 
     <div id="my-header">
       <h1>Extracurricular Activities</h1> 
@@ -81,8 +81,8 @@
              <div class="my-comment">
                  <center>
                     <form action="/data" method="POST">
-                        <p>Please Leave Comments.</p>
-                        <textarea name="text-input" rows="1" cols="100"></textarea>
+                        <p>ADD COMMENTS.</p>
+                        <textarea name="text-input" rows="3" cols="100"></textarea>
                         <br/><br/>   
                         <input type="submit"/>
                     </form>
@@ -99,7 +99,7 @@
                         <option value="4">4</option>
                         <option value="5">5</option>    
                     </select>
-                    <button id="delete" type="button" onclick="deleteComments()">Delete Comments</button>
+                    <button class="button" type="button" onclick="deleteComments()">DELETE COMMENTS</button>
                 </center> 
              </div>
               
