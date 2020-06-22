@@ -40,7 +40,6 @@ public class DataServlet extends HttpServlet {
     datastore = DatastoreServiceFactory.getDatastoreService();
     
     // Get query strings as entities from the Datastore.
-
     PreparedQuery comments = datastore.prepare(query);
 
     int maxLimit = userChoice(request, "max-comments");
