@@ -32,12 +32,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); 
+  private static final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); 
   
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore = DatastoreServiceFactory.getDatastoreService();
     
     // Get query strings as entities from the Datastore.
 
@@ -72,7 +72,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty("comment", userComment);
     commentEntity.setProperty("timestamp", timestamp);
    
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
     // Redirect back to the HTML page.
