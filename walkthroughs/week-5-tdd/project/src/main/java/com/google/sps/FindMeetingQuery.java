@@ -24,7 +24,7 @@ public final class FindMeetingQuery {
 
     ArrayList<TimeRange> availableTimeRanges = new ArrayList<TimeRange>();
     ArrayList<TimeRange> bookedTimeRanges = new ArrayList<TimeRange>();
-    bookedTimeRanges = getBookedTime(events, request);
+    bookedTimeRanges = getBookedTimeRanges(events, request);
     
     // Checks to see if there are no events and returns time range as whole day if true.
     if (bookedTimeRanges.size() == 0){
@@ -92,7 +92,7 @@ public final class FindMeetingQuery {
     return availableTimeRanges;
   }
     // Get an ArrayList of all the booked times in the events.    
-    public ArrayList<TimeRange> getBookedTime(Collection<Event> events, MeetingRequest request){ 
+    public ArrayList<TimeRange> getBookedTimeRanges(Collection<Event> events, MeetingRequest request){ 
         ArrayList<TimeRange> timeRanges = new ArrayList<TimeRange>();
         for(String user: request.getAttendees()){
             for(Event event: events){
