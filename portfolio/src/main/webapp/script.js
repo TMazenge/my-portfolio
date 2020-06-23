@@ -13,53 +13,45 @@
 // limitations under the License.
 
 // Load the Visualization API and the corechart package.
-google.charts.load('current', {'packages':['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCsXue58CAXOH-5VWiXjHjhBa-0lr5Mlk8'});
+google.charts.load('current', {'packages':['corechart']});
+google.charts.load('current', {'packages':['geochart'], 'mapsApiKey': 'AIzaSyCsXue58CAXOH-5VWiXjHjhBa-0lr5Mlk8'});
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawPieChart);
 google.charts.setOnLoadCallback(drawAfricaMap);
 
 
-var i = 0; 			// Start Point
-var images = [];	// Images Array  
-var time = 4000;
-
-// Add images to array of images for slideshow.
-images[0] = "images/skate2.jpg";
-images[1] = "images/skateboard.jpg";
-
-images[2] = "images/read.jpg";
-images[3] = "images/read3.jpg";
-images[4] = "images/read4.jpg";
-
-images[5] = "images/photography1.jpg";
-images[6] = "images/photography-1.jpg";
-images[7] = "images/photography.jpg";
-images[8] = "images/photo-3.jpg";
-images[9] = "images/photo2.jpg";
-
-images[10] = "images/art.jpg";
-images[11] = "images/art4.jpg";
-images[12] = "images/art5.jpg";
+var slideIndex = 1;
+showSlides(slideIndex);
 
 
-// Change Image
-function changeImg(){
-	document.slide.src = images[i];
-	// Check If Index Is Under Max
-	if(i < images.length - 1){
-	  // Add 1 to Index
-	  i++; 
-	} else { 
-		// Reset Back To O
-		i = 0;
-	}
-	// Run function every x seconds
-	setTimeout("changeImg()", time);
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
 }
 
-// Run function when page loads
-window.onload=changeImg;
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+
 
 function getServerComments() {
   const maxComment = sessionStorage.getItem("max-comments") || 1;
@@ -80,6 +72,7 @@ function getServerComments() {
 function createListElement(text) {
   const liElement = document.createElement('li');
   liElement.innerText = text;
+  liElement.setAttribute('class','user-comment');
   return liElement;
 }
 
@@ -102,12 +95,13 @@ function deleteComments() {
 function createMap() {
 
   var mahal = {lat: 27.1751, lng: 78.0421};
-  var wall =  {lat: 40.4319, lng: 116.5704};
-  var eye = {lat: 51.5033, lng: 0.1195};
+  var wall =  {lat: 40.433082, lng: 116.564137};
+  var eye = {lat: 51.503413, lng: -0.11953};
 
-  const map = new google.maps.Map(
+  const map1 = new google.maps.Map(
       document.getElementById('map1'),
-      {center: mahal, zoom: 16,
+      {center: mahal, zoom: 18, heading: 90, mapTypeId: 'satellite',
+      tilt: 45,
        styles: [
             {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
             {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
@@ -188,19 +182,23 @@ function createMap() {
               stylers: [{color: '#17263c'}]
             }
           ]});
+  var options3 = {
+        backgroundColor: "#006994",
+    };
 
-var marker1 = new google.maps.Marker({position: mahal, map: map1, title: "Taj Mahal"});
+  var marker1 = new google.maps.Marker({position: mahal, map: map1, title: "Taj Mahal"});
 
   const map2 = new google.maps.Map(
       document.getElementById('map2'),
-      {center: wall, zoom: 16, styles: [
+      {center: wall, zoom: 18, heading: 90, mapTypeId: 'satellite',
+      tilt: 45, styles: [
             {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
             {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
             {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
             {
               featureType: 'administrative.locality',
               elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
+              stylers: [{color: '#847e72'}]
             },
             {
               featureType: 'poi',
@@ -273,12 +271,15 @@ var marker1 = new google.maps.Marker({position: mahal, map: map1, title: "Taj Ma
               stylers: [{color: '#17263c'}]
             }
           ]});
-
+  var options2 = {
+        backgroundColor: "#006994",
+    };
   var marker2 = new google.maps.Marker({position: wall, map: map2, title: "The Great Wall of China"});
 
   const map3 = new google.maps.Map(
       document.getElementById('map3'),
-      {center: eye, zoom: 16, styles: [
+      {center: eye, zoom: 18, heading: 90, mapTypeId: 'satellite',
+      tilt: 45,styles: [
             {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
             {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
             {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
@@ -345,7 +346,7 @@ var marker1 = new google.maps.Marker({position: mahal, map: map1, title: "Taj Ma
             {
               featureType: 'water',
               elementType: 'geometry',
-              stylers: [{color: '#17263c'}]
+              stylers: [{color: "#006994"}]
             },
             {
               featureType: 'water',
@@ -358,19 +359,22 @@ var marker1 = new google.maps.Marker({position: mahal, map: map1, title: "Taj Ma
               stylers: [{color: '#17263c'}]
             }
           ]});
+  var options3 = {
+        backgroundColor: "#006994",
+    };
  var marker3 = new google.maps.Marker({position: eye, map: map3, title: "The London Eye"});
 }
 
-let map;
-
+var map;
 /* Editable marker that displays when a user clicks in the map. */
-let editMarker;
+var editMarker;
 
 /** Creates a map that allows users to add markers. */
 function createUserMap() {
-  map = new google.maps.Map(
+   map = new google.maps.Map(
       document.getElementById('map4'),
       {center: {lat: 38.5949, lng: -94.8923}, zoom: 4});
+
 
   // When the user clicks in the map, show a marker with a text box the user can
   // edit.
@@ -394,7 +398,7 @@ function fetchMarkers() {
 function createMarkerForDisplay(lat, lng, content) {
   const marker =
       new google.maps.Marker({position: {lat: lat, lng: lng}, map: map});
-
+  
   const infoWindow = new google.maps.InfoWindow({content: content});
   marker.addListener('click', () => {
     infoWindow.open(map, marker);
