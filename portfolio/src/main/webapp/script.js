@@ -24,6 +24,7 @@ google.charts.setOnLoadCallback(drawAfricaMap);
 var slideIndex = 1;
 showSlides(slideIndex);
 
+
 // Next/previous controls
 function plusSlides(n) {
   showSlides(slideIndex += n);
@@ -33,6 +34,7 @@ function plusSlides(n) {
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
+
 
 function showSlides(n) {
   var i;
@@ -521,4 +523,5 @@ function drawAfricaMap() {
 
     var chart = new google.visualization.GeoChart(document.getElementById('chart-two'));
         chart.draw(data, options);
+	
 }
