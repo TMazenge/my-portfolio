@@ -52,6 +52,7 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
 }
 
+window.onload=currentSlide(1);
 
 function getServerComments() {
   const maxComment = sessionStorage.getItem("max-comments") || 1;
@@ -481,10 +482,12 @@ function drawPieChart() {
     ]);
 
     // Set chart options
-    var options = {'title':'Zimbabwe children Living Status',
+    var options = {'title':'Zimbabwe Children Living Status',
                     backgroundColor: 'transparent',
-                    'width':500,
-                    'height':450};
+                    legendTextStyle: { color: 'rgb(214, 207, 207)', fontSize: 10},
+                    titleTextStyle: { color: 'rgb(214, 207, 207)', fontSize: 20},
+                    'width':600,
+                    'height':550};
 
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.PieChart(document.getElementById('chart-one'));
@@ -519,6 +522,7 @@ function drawAfricaMap() {
     var options = {
         region: '002', // Africa
         backgroundColor: "#006994",
+        colors: ['purple']
     };
 
     var chart = new google.visualization.GeoChart(document.getElementById('chart-two'));
