@@ -24,84 +24,166 @@ public final class FindMeetingQuery {
   public ArrayList<TimeRange> query(Collection<Event> events, MeetingRequest request) {
 
     ArrayList<TimeRange> availableTimeRanges = new ArrayList<TimeRange>();
+    ArrayList<TimeRange> availableOptionalTimeRanges = new ArrayList<TimeRange>();
+    ArrayList<TimeRange> possibleTimeRanges = new ArrayList<TimeRange>();
+
     ArrayList<TimeRange> bookedTimeRanges = new ArrayList<TimeRange>();
-    bookedTimeRanges = getBookedTime(events, request);
-    
+    ArrayList<TimeRange> optionalTimeRanges = new   ArrayList<TimeRange>();
+
+    bookedTimeRanges = getBookedTimeRanges(events, request, true);
+    optionalTimeRanges = getBookedTimeRanges(events, request, false);
+
+    // Checks if time duration for meeting request is greater than 24 hours.
+    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) return availableTimeRanges;
+
     // Checks to see if there are no events and returns time range as whole day if true.
-    if (bookedTimeRanges.size() == 0){
-        TimeRange available = TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true);
-        if(available.duration() >= request.getDuration()){
-            availableTimeRanges.add(available);
-        }
+    if (bookedTimeRanges.size() == 0 & optionalTimeRanges.size() == 0){
+        availableTimeRanges.add(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true));
         return availableTimeRanges; 
     }
 
     // Arrange booked time besed upon start time.
     Collections.sort(bookedTimeRanges, TimeRange.ORDER_BY_START);
+    Collections.sort(optionalTimeRanges, TimeRange.ORDER_BY_START);
 
-    int i = 0;
-    // Checks for overlaps in booked time ranges and creates new array list with all unavailable times.
-    while (i < (bookedTimeRanges.size() - 1)){
-        TimeRange first = bookedTimeRanges.get(i);
-        TimeRange second = bookedTimeRanges.get(i+1);
-        if(first.overlaps(second)){
-            if (first.contains(second)){
-                bookedTimeRanges.remove(second);
-            } else {
-                int oldStart = first.start();
-                int newEnd = second.end();
-                
-                bookedTimeRanges.set(i, TimeRange.fromStartEnd(oldStart, newEnd, false));
-                bookedTimeRanges.remove(second);
+    // Get unavaliable time ranges for optional attendees and mandatory attendees.
+    getUnavaliableTimeRanges(optionalTimeRanges);
+    getUnavaliableTimeRanges(bookedTimeRanges);
+
+    // Insert time range from the start of the day for optional attendees and mandatory attendees.
+    insertStartOfDay(optionalTimeRanges, availableOptionalTimeRanges, request);
+    insertStartOfDay(bookedTimeRanges, availableTimeRanges, request);
+    
+    // Get free time ranges for optional attendees and mandatory attendees.
+    getFreeTimeRanges(optionalTimeRanges, availableOptionalTimeRanges, request);
+    getFreeTimeRanges(bookedTimeRanges, availableTimeRanges, request);
+
+    // Insert time range from the end of the day for optional attendees and mandatory attendees.
+    insertEndOfDay(optionalTimeRanges, availableOptionalTimeRanges, request);
+    insertEndOfDay(bookedTimeRanges, availableTimeRanges, request);
+
+    // If no mandatory attendees, return available time ranges for optional attendees.
+    if(request.getAttendees().isEmpty()) return availableOptionalTimeRanges;
+
+    int otptionalAttendeePointer = 0;
+    int mandatoryAttendeePointer = 0;
+
+    // Gererate Arraylist for avalable time ranges for both optional and mandatory attendees.
+    while (otptionalAttendeePointer < availableOptionalTimeRanges.size() & mandatoryAttendeePointer < availableTimeRanges.size()){
+        
+        TimeRange availableMandatory = availableTimeRanges.get(mandatoryAttendeePointer);
+        TimeRange availableOptional = availableOptionalTimeRanges.get(otptionalAttendeePointer);
+
+        if(availableMandatory.start() >= availableOptional.end()){
+            otptionalAttendeePointer++;
+        } else if (availableOptional.start() >= availableMandatory.end()){
+            mandatoryAttendeePointer++;
+        } else if (availableOptional.contains(availableMandatory)){
+            possibleTimeRanges.add(availableMandatory);
+            mandatoryAttendeePointer++;
+        } else if (availableMandatory.contains(availableOptional)){
+            possibleTimeRanges.add(availableOptional);
+            otptionalAttendeePointer++;
+        } else if (availableOptional.overlaps(availableMandatory)){
+
+            int mandatoryPossibleTime = availableMandatory.start();
+            int optionalPossibleTime = availableOptional.start();
+
+            TimeRange possibleTime = TimeRange.fromStartEnd(optionalPossibleTime, mandatoryPossibleTime, false);
+            if(request.getDuration() < possibleTime.duration()) {
+                possibleTimeRanges.add(availableMandatory);
+                otptionalAttendeePointer++;
+                mandatoryAttendeePointer++;
+
             }
-
-        }
-        i+=1; 
-    }
-
-    // Add time available to the available time ranges at the beginning of the day.
-    if (bookedTimeRanges.size() > 0){
-        if(!(bookedTimeRanges.get(0).contains(TimeRange.START_OF_DAY))){
-            TimeRange start = TimeRange.fromStartEnd(TimeRange.START_OF_DAY, bookedTimeRanges.get(0).start(), false);
-            if(start.duration() >= request.getDuration()){
-                availableTimeRanges.add(start);
-            }
         }
     }
 
-    // Check avaialability in the booked time ranges and add to available timer ranges arraylist.
-    for(int j=0; j < bookedTimeRanges.size() - 1; j++){
-        TimeRange endOne = bookedTimeRanges.get(j);
-        TimeRange secondTwo = bookedTimeRanges.get(j+1);
+    // Checks to see if there are no common available time arranges for mandatory and optional, and returns time ranges for mandatory if empty.
+    if(possibleTimeRanges.isEmpty()) return availableTimeRanges;
 
-        TimeRange freeRange = TimeRange.fromStartEnd(endOne.end(), secondTwo.start(), false);
-        if(freeRange.duration() >= request.getDuration()){
-            availableTimeRanges.add(freeRange);
-        }
-    }
-
-    // Add available time at the end of the day to the available time ranges.
-    int number = bookedTimeRanges.size();
-    if (number > 0){
-        if(!(bookedTimeRanges.get(number-1).contains(TimeRange.END_OF_DAY))){
-            TimeRange end = TimeRange.fromStartEnd(bookedTimeRanges.get(number-1).end(), TimeRange.END_OF_DAY, true);
-            if(end.duration() >= request.getDuration()){
-                availableTimeRanges.add(end);
-            }
-        }
-    }
-    return availableTimeRanges;
+    return possibleTimeRanges;
   }
-    // Get an ArrayList of all the booked times in the events.    
-    public ArrayList<TimeRange> getBookedTime(Collection<Event> events, MeetingRequest request){ 
-        ArrayList<TimeRange> timeRanges = new ArrayList<TimeRange>();
-        for(String user: request.getAttendees()){
-            for(Event event: events){
-                if (event.getAttendees().contains(user)){
-                    timeRanges.add(event.getWhen());
-                }
-             }    
+  
+    public ArrayList<TimeRange> getBookedTimeRanges(Collection<Event> events, MeetingRequest request, boolean mandatory){
+        ArrayList<TimeRange> bookedTimeRanges = new ArrayList<TimeRange>();
+
+        if (!mandatory){
+            for(String optionalUser: request.getOptionalAttendees()){
+                for(Event event: events){
+                    if (event.getAttendees().contains(optionalUser)){
+                        bookedTimeRanges.add(event.getWhen());
+                    }
+                }    
+            }
+        } else{
+            for(String user: request.getAttendees()){
+                for(Event event: events){
+                    if (event.getAttendees().contains(user)){
+                        bookedTimeRanges.add(event.getWhen());
+                    }
+                }    
+            }
         }
-        return timeRanges;
+        return bookedTimeRanges;
+    } 
+
+    // Checks for overlaps in booked time ranges and creates new array list with all unavailable times
+    public void getUnavaliableTimeRanges(ArrayList<TimeRange> bookedTimeRanges){
+        int k = 0;
+        while (k < (bookedTimeRanges.size() - 1)){
+            TimeRange first = bookedTimeRanges.get(k);
+            TimeRange second = bookedTimeRanges.get(k+1);
+            if(first.overlaps(second)){
+                if (first.contains(second)){
+                    bookedTimeRanges.remove(second);
+                } else {
+                    int oldStart = first.start();
+                    int newEnd = second.end();
+                    
+                    bookedTimeRanges.set(k, TimeRange.fromStartEnd(oldStart, newEnd, false));
+                    bookedTimeRanges.remove(second);
+                }
+            }
+            k++; 
+        }
     }
+
+    public void insertStartOfDay(ArrayList<TimeRange> bookedTimeRanges, ArrayList<TimeRange> possibleTimeRanges, MeetingRequest request) {
+        if (bookedTimeRanges.size() > 0){
+            if(!(bookedTimeRanges.get(0).contains(TimeRange.START_OF_DAY))){
+                TimeRange start = TimeRange.fromStartEnd(TimeRange.START_OF_DAY, bookedTimeRanges.get(0).start(), false);
+                if(start.duration() >= request.getDuration()){
+                    possibleTimeRanges.add(start);
+                }
+            }
+        }
+    }
+
+    public void insertEndOfDay(ArrayList<TimeRange> bookedTimeRanges, ArrayList<TimeRange> possibleTimeRanges, MeetingRequest request) {
+        int num = bookedTimeRanges.size();
+        if (num > 0){
+            if(!(bookedTimeRanges.get(num-1).contains(TimeRange.END_OF_DAY))){
+                TimeRange end = TimeRange.fromStartEnd(bookedTimeRanges.get(num-1).end(), TimeRange.END_OF_DAY, true);
+                if(end.duration() >= request.getDuration()){
+                    possibleTimeRanges.add(end);
+                }
+            }
+        }
+    }
+
+    public void getFreeTimeRanges(ArrayList<TimeRange> unavaliableTimeRanges, ArrayList<TimeRange> availableTimeRanges, MeetingRequest request) {
+        for(int j=0; j < unavaliableTimeRanges.size() - 1; j++){
+            TimeRange endOne = unavaliableTimeRanges.get(j);
+            TimeRange secondTwo = unavaliableTimeRanges.get(j+1);
+
+            TimeRange freeRange = TimeRange.fromStartEnd(endOne.end(), secondTwo.start(), false);
+            if(freeRange.duration() >= request.getDuration()){
+                availableTimeRanges.add(freeRange);
+            }
+        }
+    }
+
 }
+
+ 
