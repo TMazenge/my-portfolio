@@ -3,11 +3,14 @@
   <head>
     <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width">
-    <title>My Portfolio</title>
+    <title>Timothy Mazenge's Mission</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsXue58CAXOH-5VWiXjHjhBa-0lr5Mlk8"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="script.js"></script>
   </head>
-  <body id="my-body">
+  <body id="my-about">
 
     <div id="my-header">
       <h1>My Life's Mission</h1> 
@@ -26,29 +29,32 @@
         </nav>     
      </div>
 
-     <div>
-         <h3 class="about-text">My Life Goal</h3>
-         <p class="about-text"> Due to the shrivelled economy in my home, I grew witnessing my mother's resilient hardwork ,I aspired to start an organization that has the aim of 
-             aiding vulnerable women and children  Africa. 
+        <h3 class="goal-text"><i>My Life Goal</i></h3>
+         <p class="goal-text" style="text-align:justify;margin-left:20px;margin-right:20px;"> <i>Due to the shrivelled economy in my home, I grew witnessing my mother's resilient hardwork, I aspire to start an organization that has the aim of 
+             aiding vulnerable women and children Africa. My country and continent faces a lot challenges from high unemployement rates to a higher percentages of children living in the streets.
+             In memory of my mother who passed away due to cancer I am going to create a a foundation called <span style="color:#0080ff;">The Tamary Musiteyi Foundation</span> with the sole purpose of supporting underprivildedged
+             children and vulnerable women. Many women are victims of domestic violence and my main aim is to empower these women so that they too can have a chance.<i/>
          </p>
+            
+     <div clas="my-about-content">
+        <div class="my-about-content-items">
 
-         <div clas="my-img">
-    
-            <div>
-                <img src="images/working-mother.jpg" style="width:100%;height:1000px;"> 
-            </div> 
+              <div class="my-about-content-item">
+                <div class="about-img">
+                    <img src="images/foundation2.jpg" alt="Kids"  style="width:100%;height:100%;">          
+                </div>    
+            </div>
 
-            <div>
-                <img src="images/working-mother2.jpg"  style="width:100%;height:1000px;"> 
-            </div> 
-    
-            <div>
-                <img src="images/foundation2.jpg"  style="width:100%;height:1000px;"> 
-            </div> 
-              
-         </div>
+             <div id="chart-one" class="kids" clas="chart"></div>
 
-     </div>
+             <div class="my-about-content-item">
+                <div class="about-img">
+                    <img src="images/working-mother.jpg" alt="Working Mother" style="width:100%;height:100%;">         
+                </div>    
+            </div>
+
+            <div id="chart-two" ></div>
+        </div> 
   </body>
 </html>
 

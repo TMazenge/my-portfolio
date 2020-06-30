@@ -3,11 +3,14 @@
   <head>
     <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width">
-    <title>My Portfolio</title>
+    <title>Timothy Mazenge's Activities</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsXue58CAXOH-5VWiXjHjhBa-0lr5Mlk8"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="script.js"></script>
+
   </head>
-  <body id="my-body">
+  <body id="my-about" onload="getServerComments()" onload="reloadComments()" onload="currentSlide(1)">
 
     <div id="my-header">
       <h1>Extracurricular Activities</h1> 
@@ -26,30 +29,88 @@
         </nav>     
      </div>
 
-    <div class="slide-contents">
-        <div class="slide-content">
-              <img name="slide" style="width:100%;height:100%;"/>  
-        </div>
 
-        <div class="my-about-text-item">
-            <div class="about-text">
-                <h1>My Activities</h1> 
-                   <dl>
-                    <dt><u>Skateboarding</u></dt>
-                        <dd>- I enjoy skateboarding in the park. The speed of the skateboard makes my blood rush with adrenaline.</dd>
-                    <dt><u>Reading</u></dt>
-                         <dd>- I like reading about successful people's biographical books as a to see how they made it.</dd>
-                    <dt><u>Photography</u></dt>
-                         <dd>- I view photgraphy as magic because it allows me to capture moments that will lat for an eternity. 
-                            I wnat to capture all the moments that take my breath away.</dd> 
-                    <dt><u>Drawing</u></dt>
-                         <dd>- i enjoy graphite drawinga sit allows me to enhance my focus and heal my mind. Drawing is form of therapy I use
-                             in my daily life.
-                         </dd>
-                    </dl>
-                </div> 
-        </div>
+    <div class="slide-content">
+            <div class="slideshow-container">
+            <!-- Full-width images with number and caption text -->
+            <div class="mySlides fade">
+                <div class="numbertext">1 / 4</div>
+                <img src="images/skateboard.jpg" style="width:100%">
+                <div class="text"> I enjoy skateboarding in the park. The speed of the skateboard makes my blood rush with adrenaline.</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">2 / 4</div>
+                <img src="images/read.jpg" style="width:100%">
+                <div class="text">I like reading about successful people's biographical books as a to see how they made it.</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">3 / 4</div>
+                <img src="images/photography-1.jpg" style="width:100%">
+                <div class="text">I view photgraphy as magic because it allows me to capture moments that will lat for an eternity.</div>
+            </div>
+
+
+            <div class="mySlides fade">
+                <div class="numbertext">3 / 4</div>
+                <img src="images/basketball.jpg" style="width:100%">
+                <div class="text">I am not a professional ball player, but I do love the sport.</div>
+            </div>
+            
+
+            <!-- Next and previous buttons -->
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <br>
+
+            <!-- The dots/circles -->
+            <div style="text-align:center">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                </div>
     </div>
+
+
+    <div class="my-form">
+         <div class="my-comment-contents">
+             
+             <div class="my-comment">
+                 <center>
+                    <form action="/data" method="POST">
+                        <p>ADD COMMENTS.</p>
+                        <textarea name="text-input" rows="3" cols="100"></textarea>
+                        <br/><br/>   
+                        <input type="submit"/>
+                    </form>
+                </center>
+             </div>
+             <div class="my-comment">
+                <center>
+                  <label for="comments">Comments to View</label>
+        
+                    <select name="comments" value="1" id="max-comments" onchange="reloadComments()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>    
+                    </select>
+                    <button class="button" type="button" onclick="deleteComments()">DELETE COMMENTS</button>
+                </center> 
+             </div>
+              
+              <center>
+                <div class="my-comment">
+                    <h4>Comment Section</h4>
+                    <ol id="history" ></ol>
+                <div>   
+              </center>
+     </div>
+    
   </body>
 </html>
 
